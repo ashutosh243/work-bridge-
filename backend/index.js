@@ -15,12 +15,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(cookieParser());
-const corsOptions = {
-    origin:['http://localhost:5173','https://work-bridge.onrender.com'],
-    credentials:true
-}
+// const corsOptions = {
+//     origin:['http://localhost:5173','https://work-bridge.onrender.com'],
+//     credentials:true
+// }
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 
 const PORT = process.env.PORT || 8000;
 
