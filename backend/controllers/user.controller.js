@@ -5,7 +5,6 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
-    
     try{
         const { fullname, email, phoneNumber, password, role } = req.body;
         if (!fullname || !email || !phoneNumber || !password || !role) {
@@ -14,8 +13,9 @@ export const register = async (req, res) => {
                 success: false
             });
         };
-        //uploading to cloudinary----
-        const file = req.file;
+
+        //uploading to cloudinary-------------
+        const file = req?.file;
         const fileUri = getDataUri(file);
         const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
         const user = await User.findOne({ email });
@@ -41,8 +41,9 @@ export const register = async (req, res) => {
             success: true
         });
     }
-    catch (error) {
-        console.log(error);
+    catch (error){
+       console.log(error);
+       console.log("inside this user error space");
     }
 }
 
@@ -95,7 +96,7 @@ export const login = async (req, res) => {
             profile: user.profile
         }
 
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'strict' }).json({
+        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'none' }).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true
@@ -131,6 +132,7 @@ export const updateProfile = async (req, res) => {
             skillsArray = skills.split(",");
         }
         const userId = req.id; // middleware authentication
+        console.log("user Id"+ userId);
         let user = await User.findById(userId);
 
         if (!user){

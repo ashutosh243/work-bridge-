@@ -59,6 +59,10 @@ const Signup = () => {
             }
         } 
         catch (error) {
+            console.log('Data:', requestData);
+            console.log('Headers:', axios.defaults.headers);
+            console.log(error.response.data);
+            console.log(error);
             toast.error(error.message);
         }
         finally{
