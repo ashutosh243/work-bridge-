@@ -96,7 +96,7 @@ export const login = async (req, res) => {
             role: user.role,
             profile: user.profile
         }
-        return res.status(200).cookie("token", token,{httpOnly: true,secure: false, sameSite: 'none' }).json({
+        return res.status(200).cookie("token", token,{httpOnly: true }).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true,
