@@ -5,7 +5,7 @@ import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
 import { Domain } from "domain";
 
-export const register = async (req, res) => {
+export const register = async (req, res) =>{
     try{
         const { fullname, email, phoneNumber, password, role } = req.body;
         if (!fullname || !email || !phoneNumber || !password || !role) {
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
                 success: false
             });
         };
-
+    
         let user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
@@ -96,7 +96,7 @@ export const login = async (req, res) => {
             role: user.role,
             profile: user.profile
         }
-        return res.status(200).cookie("token", token,{httpOnly: true }).json({
+        return res.status(200).cookie("token", token,{httpOnly: true,secure: false, sameSite: 'Strict' }).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true,
@@ -108,7 +108,7 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     
     try{    
-        return res.status(200).cookie("token", "", { maxAge: 0 }).json({
+        return res.status(200).cookie("token", "").json({
             message: "Logged out successfully.",
             success: true
         })
