@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
+import { Domain } from "domain";
 
 export const register = async (req, res) => {
     try{
@@ -95,7 +96,7 @@ export const login = async (req, res) => {
             role: user.role,
             profile: user.profile
         }
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'none' }).json({
+        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: 'none', Domain:'https://work-bridge.onrender.com'}).json({
             message: `Welcome back ${user.fullname}`,
             user,
             success: true,
