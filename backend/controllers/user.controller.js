@@ -44,7 +44,7 @@ export const register = async (req, res) =>{
     }
     catch (error){
        console.log(error);
-       console.log("inside this user error space");
+    
     }
 }
 
@@ -133,7 +133,6 @@ export const updateProfile = async (req, res) => {
             skillsArray = skills.split(",");
         }
         const userId = req.id; // middleware authentication
-        console.log("user Id"+ userId);
         let user = await User.findById(userId);
 
         if (!user){
